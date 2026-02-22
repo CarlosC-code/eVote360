@@ -1,0 +1,81 @@
+﻿@model PuestoElectivoCreateViewModel
+
+@{
+    ViewData["Title"] = "Crear puesto electivo";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+        <hr class="mt-2" />
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                <div class="row g-3">
+
+                    <!-- Nombre -->
+                    <div class="col-md-6">
+                        <label asp-for="Nombre"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <input asp-for="Nombre"
+                               class="form-control" />
+
+                        <span asp-validation-for="Nombre"
+                              class="text-danger small">
+                        </span>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="col-12">
+                        <label asp-for="Descripcion"
+                               class="form-label fw-semibold">
+                        </label>
+
+                        <textarea asp-for="Descripcion"
+                                  class="form-control"
+                                  rows="3">
+                        </textarea>
+
+                        <span asp-validation-for="Descripcion"
+                              class="text-danger small">
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary px-4">
+                        Volver
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-success px-4">
+                        Crear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home del Administrador";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Home del Administrador</h2>
+
+    <nav class="nav nav-pills mb-4">
+        <a class="nav-link" asp-controller="PuestoElectivo" asp-action="Index">Puesto Electivo</a>
+        <a class="nav-link" asp-controller="Ciudadano" asp-action="Index">Ciudadanos</a>
+        <a class="nav-link" asp-controller="Partido" asp-action="Index">Partidos políticos</a>
+        <a class="nav-link" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+        <a class="nav-link" asp-controller="AsignacionDirigente" asp-action="Index">Asignación de dirigente políticos</a>
+        <a class="nav-link" asp-controller="Eleccion" asp-action="Index">Elecciones</a>
+    </nav>
+
+</div>

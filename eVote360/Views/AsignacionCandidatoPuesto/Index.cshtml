@@ -1,0 +1,93 @@
+﻿@model List<eVote360.Core.Application.Dtos.Dirigente.Candidatura.CandidaturaDto>
+
+@{
+    ViewData["Title"] = "Asignaciones Candidato ↔ Puesto";
+    var partidoId = ViewBag.PartidoId as int? ?? 0;
+    Layout = "_LayoutDirigente";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+
+        <a asp-action="Create"
+           asp-route-partidoId="@partidoId"
+           class="btn btn-success btn-sm px-3">
+            + Nueva asignación
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="text-center py-5">
+                    <h6 class="text-muted mb-0">
+                        No hay asignaciones registradas
+                    </h6>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th class="fw-semibold">CandidatoId</th>
+                                <th class="fw-semibold">PuestoId</th>
+                                <th class="fw-semibold">PartidoId</th>
+                                <th class="fw-semibold">Estado</th>
+                                <th style="width:160px;"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var a in Model)
+                            {
+                                <tr>
+                                    <td>@a.CandidatoId</td>
+                                    <td>@a.PuestoElectivoId</td>
+                                    <td>@a.PartidoId</td>
+                                    <td>
+                                        @if (a.IsActive)
+                                        {
+                                            <span class="badge bg-success-subtle text-success border">
+                                                Activo
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-light text-secondary border">
+                                                Inactivo
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <form asp-action="Delete"
+                                              method="post"
+                                              class="d-inline">
+                                            <input type="hidden" name="id" value="@a.Id" />
+                                            <input type="hidden" name="partidoId" value="@partidoId" />
+                                            <button class="btn btn-outline-danger btn-sm">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

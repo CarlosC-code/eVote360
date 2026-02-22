@@ -1,0 +1,124 @@
+﻿@model List<eVote360.Core.Application.Dtos.Dirigente.Candidato.CandidatoDto>
+
+@{
+    ViewData["Title"] = "Candidatos";
+    var partidoId = ViewBag.PartidoId as int? ?? 0;
+    Layout = "_LayoutDirigente";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+
+        <a asp-action="Create"
+           asp-route-partidoId="@partidoId"
+           class="btn btn-success btn-sm px-3">
+            + Crear
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="text-center py-5">
+                    <h6 class="text-muted mb-0">
+                        No hay candidatos registrados
+                    </h6>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width:90px;" class="fw-semibold">Foto</th>
+                                <th class="fw-semibold">Nombre</th>
+                                <th class="fw-semibold">Estado</th>
+                                <th style="width:240px;"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var c in Model)
+                            {
+                                <tr>
+
+                                    <!-- Foto -->
+                                    <td>
+                                        @if (!string.IsNullOrWhiteSpace(c.FotoPath))
+                                        {
+                                            <img src="~/@c.FotoPath"
+                                                 class="img-fluid rounded border"
+                                                 style="max-height:56px;" />
+                                        }
+                                    </td>
+
+                                    <!-- Nombre -->
+                                    <td>
+                                        <span class="fw-semibold">
+                                            @c.Nombre @c.Apellido
+                                        </span>
+                                    </td>
+
+                                    <!-- Estado -->
+                                    <td>
+                                        @if (c.IsActive)
+                                        {
+                                            <span class="badge bg-success-subtle text-success border">
+                                                Activo
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-light text-secondary border">
+                                                Inactivo
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <!-- Acciones -->
+                                    <td class="text-end">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@c.Id"
+                                           asp-route-partidoId="@partidoId"
+                                           class="btn btn-outline-primary btn-sm">
+                                            Editar
+                                        </a>
+
+                                        <form asp-action="SetActive"
+                                              method="post"
+                                              class="d-inline">
+                                            <input type="hidden" name="id" value="@c.Id" />
+                                            <input type="hidden" name="partidoId" value="@partidoId" />
+                                            <input type="hidden" name="active"
+                                                   value="@(c.IsActive ? "false" : "true")" />
+
+                                            <button type="submit"
+                                                    class="btn btn-sm @(c.IsActive ? "btn-outline-warning" : "btn-outline-success")">
+                                                @(c.IsActive ? "Desactivar" : "Activar")
+                                            </button>
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

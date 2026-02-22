@@ -1,0 +1,67 @@
+﻿@model AlianzaSolicitudCreateViewModel
+
+@{
+    ViewData["Title"] = "Nueva solicitud de alianza";
+    var partidoId = ViewBag.PartidoId as int? ?? 0;
+    Layout = "_LayoutDirigente";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <form asp-action="CrearSolicitud" method="post">
+
+                        <input type="hidden" name="partidoId" value="@partidoId" />
+
+                        <div class="mb-4">
+                            <label asp-for="PartidoDestinoId" class="form-label fw-semibold">
+                                Partido destino (Id)
+                            </label>
+
+                            <input asp-for="PartidoDestinoId"
+                                   class="form-control form-control-sm" />
+
+                            <span asp-validation-for="PartidoDestinoId"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-action="Index"
+                               asp-route-partidoId="@partidoId"
+                               class="btn btn-outline-secondary btn-sm px-3">
+                                Volver
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success btn-sm px-3">
+                                Enviar solicitud
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

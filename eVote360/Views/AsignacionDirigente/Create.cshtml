@@ -1,0 +1,92 @@
+﻿@model AsignacionDirigenteCreateViewModel
+
+@{
+    ViewData["Title"] = "Crear asignación";
+    var dirigentes = ViewBag.Dirigentes as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var partidos = ViewBag.Partidos as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <form asp-action="Create" method="post">
+
+                        <!-- Dirigente -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Dirigente
+                            </label>
+
+                            <select asp-for="UsuarioId"
+                                    class="form-select form-select-sm">
+                                <option value="">-- Seleccione --</option>
+                                @foreach (var d in dirigentes)
+                                {
+                                    <option value="@d.Id">@d.Nombre</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="UsuarioId"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Partido -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Partido
+                            </label>
+
+                            <select asp-for="PartidoId"
+                                    class="form-select form-select-sm">
+                                <option value="">-- Seleccione --</option>
+                                @foreach (var p in partidos)
+                                {
+                                    <option value="@p.Id">@p.Nombre</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="PartidoId"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-action="Index"
+                               class="btn btn-outline-secondary btn-sm px-3">
+                                Volver
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success btn-sm px-3">
+                                Crear
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

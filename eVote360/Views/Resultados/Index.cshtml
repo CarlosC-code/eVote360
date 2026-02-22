@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Resultados";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+        <hr class="mt-2" />
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <form asp-action="PorEleccion"
+                  method="post">
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- Id Elección -->
+                    <div class="col-md-4">
+                        <label for="eleccionId"
+                               class="form-label fw-semibold">
+                            Id de elección
+                        </label>
+
+                        <input type="number"
+                               name="eleccionId"
+                               id="eleccionId"
+                               class="form-control"
+                               placeholder="Ingrese el Id de la elección" />
+                    </div>
+
+                    <!-- Botón -->
+                    <div class="col-md-auto">
+                        <button type="submit"
+                                class="btn btn-primary px-4">
+                            Ver resultados
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

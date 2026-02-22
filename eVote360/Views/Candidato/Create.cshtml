@@ -1,0 +1,81 @@
+﻿@model CandidatoCreateViewModel
+
+@{
+    ViewData["Title"] = "Crear candidato";
+    var partidoId = ViewBag.PartidoId as int?;
+    Layout = "_LayoutDirigente";
+}
+
+@if (partidoId is null || partidoId <= 0)
+{
+    <div class="alert alert-danger">No se recibió el Partido.</div>
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+                        @* ✅ Hidden SOLO si el partidoId es válido, y dentro del form *@
+                        @if (partidoId is not null && partidoId > 0)
+                        {
+                            <input type="hidden" name="partidoId" value="@partidoId.Value" />
+                        }
+
+                        <!-- Nombre -->
+                        <div class="mb-4">
+                            <label asp-for="Nombre" class="form-label fw-semibold"></label>
+                            <input asp-for="Nombre" class="form-control form-control-sm" />
+                            <span asp-validation-for="Nombre" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Apellido -->
+                        <div class="mb-4">
+                            <label asp-for="Apellido" class="form-label fw-semibold"></label>
+                            <input asp-for="Apellido" class="form-control form-control-sm" />
+                            <span asp-validation-for="Apellido" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Foto -->
+                        <label asp-for="FotoFile" class="form-label fw-semibold">Foto</label>
+                        <input asp-for="FotoFile" type="file" class="form-control form-control-sm" accept="image/*" />
+                        <span asp-validation-for="FotoFile" class="text-danger small"></span>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-end gap-2 mt-3">
+                            <a asp-action="Index"
+                               asp-route-partidoId="@(partidoId ?? 0)"
+                               class="btn btn-outline-secondary btn-sm px-3">
+                                Volver
+                            </a>
+
+                            <button type="submit" class="btn btn-success btn-sm px-3">
+                                Crear
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+``

@@ -1,0 +1,62 @@
+﻿@model ElectorIngresoViewModel
+
+@{
+    ViewData["Title"] = "Votación - Ingreso";
+}
+
+<div class="container py-5">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-light mb-1">@ViewData["Title"]</h2>
+                        <p class="text-muted small mb-0">
+                            Ingrese su documento de identidad para continuar
+                        </p>
+                    </div>
+
+                    <form asp-action="Index" method="post">
+
+                        <!-- Documento -->
+                        <div class="mb-3">
+                            <label asp-for="DocumentoIdentidad"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="DocumentoIdentidad"
+                                   class="form-control form-control-lg"
+                                   autocomplete="off" />
+
+                            <span asp-validation-for="DocumentoIdentidad"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <!-- Botón -->
+                        <div class="d-grid mt-4">
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg">
+                                Votar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

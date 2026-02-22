@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace eVote360.Core.Application.Dtos.Admin.PuestoElectivo
+{
+    public class PuestoElectivoDto
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; } = default!;
+        public string Descripcion { get; set; } = default!;
+        public bool IsActive { get; set; }
+
+    }
+}

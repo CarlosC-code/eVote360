@@ -1,0 +1,79 @@
+﻿@model List<eVote360.Core.Application.Dtos.Elecciones.EleccionResumenDto>
+
+@{
+    ViewData["Title"] = "Resumen anual";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+        <hr class="mt-2" />
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="text-center py-5">
+                    <h6 class="text-muted mb-0">
+                        No hay datos disponibles para el año seleccionado
+                    </h6>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th class="fw-semibold">Elección</th>
+                                <th class="fw-semibold text-center">Partidos</th>
+                                <th class="fw-semibold text-center">Candidatos</th>
+                                <th class="fw-semibold text-center">Votos emitidos</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var r in Model)
+                            {
+                                <tr>
+
+                                    <!-- Nombre -->
+                                    <td class="fw-semibold">
+                                        @r.Nombre
+                                    </td>
+
+                                    <!-- Partidos -->
+                                    <td class="text-center">
+                                        @r.CantidadPartidos
+                                    </td>
+
+                                    <!-- Candidatos -->
+                                    <td class="text-center">
+                                        @r.CantidadCandidatos
+                                    </td>
+
+                                    <!-- Votos -->
+                                    <td class="text-center fw-semibold">
+                                        @r.TotalVotosEmitidos
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

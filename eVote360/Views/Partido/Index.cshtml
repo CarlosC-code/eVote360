@@ -1,0 +1,147 @@
+﻿@model List<eVote360.Core.Application.Dtos.Admin.Partido.PartidoDto>
+
+@{
+    ViewData["Title"] = "Partidos";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+            <small class="text-muted">
+                Total registrados: @Model.Count
+            </small>
+        </div>
+
+        <a asp-action="Create"
+           class="btn btn-success px-4">
+            Crear partido
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:100px;">Logo</th>
+                            <th>Nombre</th>
+                            <th>Siglas</th>
+                            <th>Estado</th>
+                            <th class="text-end" style="width:240px;">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            @foreach (var p in Model)
+                            {
+                                <tr>
+
+                                    <!-- Logo -->
+                                    <td>
+                                        @if (!string.IsNullOrWhiteSpace(p.LogoPath))
+                                        {
+                                            <img src="~/@p.LogoPath"
+                                                 class="img-fluid rounded border"
+                                                 style="max-height:56px; object-fit:contain;" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">
+                                                Sin logo
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <!-- Nombre -->
+                                    <td class="fw-semibold">
+                                        @p.Nombre
+                                    </td>
+
+                                    <!-- Siglas -->
+                                    <td>
+                                        <span class="badge bg-dark">
+                                            @p.Siglas
+                                        </span>
+                                    </td>
+
+                                    <!-- Estado -->
+                                    <td>
+                                        @if (p.IsActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                Activo
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                Inactivo
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <!-- Acciones -->
+                                    <td class="text-end">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@p.Id"
+                                           class="btn btn-sm btn-outline-primary me-1">
+                                            Editar
+                                        </a>
+
+                                        <form asp-action="SetActive"
+                                              method="post"
+                                              class="d-inline">
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@p.Id" />
+
+                                            <input type="hidden"
+                                                   name="active"
+                                                   value="@(p.IsActive ? "false" : "true")" />
+
+                                            <button type="submit"
+                                                    class="btn btn-sm @(p.IsActive ? "btn-outline-warning" : "btn-outline-success")">
+
+                                                @(p.IsActive ? "Desactivar" : "Activar")
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">
+                                    No hay partidos registrados.
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

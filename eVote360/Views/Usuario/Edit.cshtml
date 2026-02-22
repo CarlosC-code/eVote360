@@ -1,0 +1,163 @@
+﻿@model UsuarioEditViewModel
+
+@{
+    ViewData["Title"] = "Editar usuario";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container py-4">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-light mb-0">@ViewData["Title"]</h2>
+        <hr class="mt-2" />
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                <input asp-for="Id" type="hidden" />
+
+                <div class="row g-4">
+
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="Nombre"
+                                   class="form-control" />
+
+                            <span asp-validation-for="Nombre"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Apellido"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="Apellido"
+                                   class="form-control" />
+
+                            <span asp-validation-for="Apellido"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control" />
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label asp-for="UserName"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="UserName"
+                                   class="form-control" />
+
+                            <span asp-validation-for="UserName"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control" />
+
+                            <small class="text-muted">
+                                Déjala en blanco para no cambiarla.
+                            </small>
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="ConfirmPassword"
+                                   type="password"
+                                   class="form-control" />
+
+                            <span asp-validation-for="ConfirmPassword"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Rol"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <select asp-for="Rol"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<eVote360.Core.Domain.Common.Enums.UserRole>()">
+                            </select>
+
+                            <span asp-validation-for="Rol"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary px-4">
+                        Volver
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary px-4">
+                        Guardar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

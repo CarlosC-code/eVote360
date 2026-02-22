@@ -1,0 +1,84 @@
+﻿@model VotoPorPuestoViewModel
+
+@{
+    ViewData["Title"] = "Emitir voto";
+}
+
+<div class="container py-5">
+
+    <partial name="~/Views/Shared/_Alerts.cshtml" />
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-light mb-1">@ViewData["Title"]</h2>
+                        <p class="text-muted small mb-0">
+                            Seleccione una opción y confirme su voto
+                        </p>
+                    </div>
+
+                    <form asp-action="Votar" method="post">
+
+                        <input asp-for="CiudadanoId" type="hidden" />
+                        <input asp-for="PuestoElectivoId" type="hidden" />
+
+                        <!-- Opciones -->
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold mb-3">
+                                Opciones disponibles
+                            </label>
+
+                            <div class="list-group">
+
+                                @for (int i = 0; i < Model.Opciones.Count; i++)
+                                {
+                                    var opt = Model.Opciones[i];
+                                    var id = $"opt_{i}";
+
+                                    <label class="list-group-item d-flex align-items-center gap-3">
+
+                                        <input class="form-check-input me-2"
+                                               type="radio"
+                                               name="CandidaturaId"
+                                               id="@id"
+                                               value="@(opt.CandidaturaId?.ToString() ?? "")" />
+
+                                        <span>
+                                            @opt.Texto
+                                        </span>
+
+                                    </label>
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Puestos"
+                               class="btn btn-outline-secondary px-4">
+                                Volver
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Registrar voto
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
